@@ -1,0 +1,17 @@
+button:nth-of-type(1):hover {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+button:nth-of-type(2):hover {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+button:nth-of-type(3):hover {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}

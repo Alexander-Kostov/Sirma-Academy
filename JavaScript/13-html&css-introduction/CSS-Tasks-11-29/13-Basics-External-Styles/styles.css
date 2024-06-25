@@ -1,0 +1,7 @@
+p:nth-of-type(2) {
+    color: red;
+}
+
+p:nth-of-type(3) {
+    color: green;
+}

@@ -1,0 +1,13 @@
+div:nth-child(1) {
+    height: 300px;
+    background-image: url('../../HTML-Tasks-1-10/images/banana.webp');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div:nth-child(2) {
+    height: 300px;
+    background-image: url('../../HTML-Tasks-1-10/images/apple.webp');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
