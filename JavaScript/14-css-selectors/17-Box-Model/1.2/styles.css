@@ -1,0 +1,9 @@
+.box {
+    width: 200px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+}
+
+
+/* total width with margin 270px. Without - 250px */
