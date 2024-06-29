@@ -5,9 +5,11 @@ import Inheritance_Interfaces.management.InventoryItem;
 public class FragileItem extends InventoryItem {
 
     private double weight;
-    public FragileItem(String name, String category, boolean breakable, boolean perishable, double price,
-                       int quantity) {
-        super(name, category, breakable, perishable, price, quantity);
+    private boolean broken;
+    public FragileItem(String name, String category, double price, int quantity, double weight) {
+        super(name, category, price, quantity);
+        this.weight = weight;
+        this.broken = false;
     }
 
     public double getWeight() {
@@ -16,5 +18,13 @@ public class FragileItem extends InventoryItem {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public boolean isBroken() {
+        return broken;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
     }
 }

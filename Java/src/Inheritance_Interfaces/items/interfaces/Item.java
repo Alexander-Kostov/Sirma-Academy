@@ -4,6 +4,6 @@ public interface Item {
 
     String getDetails();
     double calculatingValue();
-    String getDescription();
+//    String getDescription();
 
 }

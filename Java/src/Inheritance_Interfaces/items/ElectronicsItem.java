@@ -6,10 +6,13 @@ import java.time.LocalDate;
 
 public class ElectronicsItem extends InventoryItem {
     private LocalDate warranty;
-    public ElectronicsItem(String name, String category, boolean breakable, boolean perishable, double price,
-                           int quantity) {
-        super(name, category, breakable, perishable, price, quantity);
-        this.warranty = LocalDate.now();
+    private boolean broken;
+
+    public ElectronicsItem(String name, String category, double price, int quantity) {
+        super(name, category, price, quantity);
+        super.setBreakable(true);
+        this.broken = false;
+        this.warranty = LocalDate.now().plusYears(1);
     }
 
     public LocalDate getWarranty() {
@@ -18,5 +21,13 @@ public class ElectronicsItem extends InventoryItem {
 
     public void setWarranty(LocalDate warranty) {
         this.warranty = warranty;
+    }
+
+    public boolean isBroken() {
+        return broken;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
     }
 }

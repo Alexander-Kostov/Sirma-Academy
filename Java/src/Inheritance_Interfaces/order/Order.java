@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-
     private List<InventoryItem> items;
-    private boolean isCompleted;
-
     public Order() {
         this.items = new ArrayList<>();
-        this.isCompleted = false;
     }
 
     public void addItem(InventoryItem item) {
@@ -32,4 +28,6 @@ public class Order {
 
         return total;
     }
+
+
 }

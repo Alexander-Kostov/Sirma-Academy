@@ -7,12 +7,11 @@ public class InventoryItem extends AbstractItem {
     private long itemId;
     private int quantity;
 
-    public InventoryItem(String name, String category, boolean breakable, boolean perishable, double price,
+    public InventoryItem(String name, String category, double price,
                          int quantity) {
-        super(name, category, breakable, perishable, price);
+        super(name, category, price);
         this.itemId = ++idCounter;
         this.quantity = quantity;
-
     }
 
     public long getId() {
@@ -29,7 +28,7 @@ public class InventoryItem extends AbstractItem {
 
     @Override
     public String getDetails() {
-        return "ID " + itemId + ", Category: " + getCategory() + ", Price: " + getPrice() + ", Quantity: " + quantity;
+        return "ID " + itemId + ", Name: " + getName() + ", Category: " + getCategory() + ", Price: " + getPrice() + ", Quantity: " + quantity;
     }
 
     @Override
@@ -37,36 +36,36 @@ public class InventoryItem extends AbstractItem {
         return getPrice() * quantity;
     }
 
-    @Override
-    public String getDescription() {
-        String description = "";
-
-        if (isPerishable()) {
-            description += "The item is perishable!\n";
-
-            if (isPerished()) {
-                description += "The item has perished!\n";
-            } else {
-                description += "The item has not perished!\n";
-            }
-        } else {
-            description += "The item is not perishable\n";
-        }
-
-        if (isBreakable()) {
-            description += "The item is breakable!\n";
-
-            if (isBroken()) {
-                description += "The item is broken!\n";
-            } else {
-                description += "The item is not broken!\n";
-            }
-        } else {
-            description += "The item is not breakable!\n";
-        }
-
-        return description;
-    }
+//    @Override
+//    public String getDescription() {
+//        String description = "";
+//
+//        if (isPerishable()) {
+//            description += "The item is perishable!\n";
+//
+//            if (isPerished()) {
+//                description += "The item has perished!\n";
+//            } else {
+//                description += "The item has not perished!\n";
+//            }
+//        } else {
+//            description += "The item is not perishable\n";
+//        }
+//
+//        if (isBreakable()) {
+//            description += "The item is breakable!\n";
+//
+//            if (isBroken()) {
+//                description += "The item is broken!\n";
+//            } else {
+//                description += "The item is not broken!\n";
+//            }
+//        } else {
+//            description += "The item is not breakable!\n";
+//        }
+//
+//        return description;
+//    }
 
     public long getItemId() {
         return itemId;
