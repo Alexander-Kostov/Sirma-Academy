@@ -67,9 +67,6 @@ public class InventoryItem extends AbstractItem {
 //        return description;
 //    }
 
-    public long getItemId() {
-        return itemId;
-    }
 
     public void setItemId(long itemId) {
         this.itemId = itemId;
