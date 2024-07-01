@@ -1,10 +1,12 @@
 package Inheritance_Interfaces.management;
 
+import Inheritance_Interfaces.items.CartItem;
 import Inheritance_Interfaces.items.ElectronicsItem;
 import Inheritance_Interfaces.items.FragileItem;
 import Inheritance_Interfaces.items.GroceryItem;
 import Inheritance_Interfaces.order.Order;
 import Inheritance_Interfaces.payment.CreditCardPayment;
+import Inheritance_Interfaces.payment.PayPalPayment;
 import Inheritance_Interfaces.payment.PaymentProcessor;
 
 import java.io.*;
@@ -44,7 +46,7 @@ public class InventoryManager {
                     placeOrder();
                     break;
                 case 6:
-                    addItemToOrder();
+                    addItemToExistingOrder();
                     break;
                 case 7:
                     removeItemFromOrder();
@@ -84,7 +86,7 @@ public class InventoryManager {
 
             String itemData = scanner.nextLine();
 
-            if (itemData.trim().equals("11")) {
+            if (itemData.trim().equals("exit")) {
                 System.out.println("You are back to the main menu");
                 break;
             }
@@ -100,190 +102,51 @@ public class InventoryManager {
                         double weight = Double.parseDouble(itemParts[3]);
                         FragileItem fragileItem = new FragileItem(name, category, price, quantity, weight);
                         inventoryItems.add(fragileItem);
-                        System.out.println(name + " added to the inventory");
-                        System.out.println("You are back to the main menu");
                     }
                     case "Electronics" -> {
                         ElectronicsItem electronicsItem = new ElectronicsItem(name, category, price, quantity);
                         inventoryItems.add(electronicsItem);
-                        System.out.println(name + " added to the inventory");
-                        System.out.println("You are back to the main menu");
                     }
                     case "Grocery" -> {
                         GroceryItem groceryItem = new GroceryItem(name, category, price, quantity);
                         inventoryItems.add(groceryItem);
-                        System.out.println(name + " added to the inventory");
-                        System.out.println("You are back to the main menu");
                     }
                 }
+                System.out.println(name + " added to the inventory");
+                System.out.println("You are back to the main menu");
                 break; // Break the loop if item is successfully created
             } else {
-                System.out.println("Please try again or exit with command 11.");
+                System.out.println("Please try again or go back to main menu with command 'exit'.");
             }
 
         }
     }
 
     private void removeItemFromInventory() {
-        if (inventoryItems.isEmpty()) {
-            System.out.println("You cannot remove from empty inventory");
+        if (checkIfInventoryIsEmpty("You cannot remove from empty inventory")) {
             return;
         }
 
         System.out.println("Please enter the ID of the item you want to remove");
         System.out.println("Here are all the present items in the inventory:");
         displayInventoryItems();
-        while (true) {
-            try {
-                int itemId = Integer.parseInt(scanner.nextLine());
-                if (itemId == -1) {
-                    System.out.println("You are back to the main menu");
-                    return;
-                }
-                Optional<InventoryItem> itemToBeRemoved =
-                        inventoryItems.stream().filter(item -> item.getId() == itemId).findFirst();
 
-                if (itemToBeRemoved.isPresent()) {
-                    inventoryItems.remove(itemToBeRemoved.get());
-                    System.out.println("Item with ID " + itemId + " removed!");
-                    return;
-                } else {
-                    System.out.println("There is no such item with ID " + itemId);
-                    System.out.println("Please enter a valid ID or go back to the main menu with '11'");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Please insert a valid ID");
-            }
-
-        }
-    }
-
-    public void saveToFile(String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write("ItemID,Name,Category,Price,Quantity,Perished,Broken");
-            writer.newLine();
-            for (InventoryItem item : inventoryItems) {
-                writer.write(item.getId() + "," +
-                        item.getName() + "," +
-                        item.getCategory() + "," +
-                        item.getPrice() + "," +
-                        item.getQuantity() + "," +
-                        item.isPerishable() + "," +
-                        item.isBreakable());
-                writer.newLine();
-            }
-            System.out.println("Successfully saved to " + filename);
-            System.out.println("You are back to the main menu");
-        } catch (IOException e) {
-            System.err.println("Error saving to file: " + e.getMessage());
-        }
-    }
-
-    public void loadFromFile(String filename) {
-        inventoryItems.clear();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line = reader.readLine(); // Read the header line
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-                if (fields.length == 9) {
-                    long itemId = Long.parseLong(fields[0]);
-                    String name = fields[1];
-                    String category = fields[2];
-                    double price = Double.parseDouble(fields[3]);
-                    int quantity = Integer.parseInt(fields[4]);
-                    boolean perished = Boolean.parseBoolean(fields[5]);
-                    boolean broken = Boolean.parseBoolean(fields[6]);
-
-                    InventoryItem item = new InventoryItem(name, category, price, quantity);
-                    item.setItemId(itemId);
-                    inventoryItems.add(item);
-                }
-            }
-            System.out.println("Successfully loaded from " + filename);
-            System.out.println("You are back to the main menu");
-        } catch (IOException e) {
-            System.err.println("Error loading from file: " + e.getMessage());
-            System.out.println("You are back to the main menu");
+        InventoryItem item = findItemById();
+        if (item != null) {
+            inventoryItems.remove(item);
+            System.out.println("Item successfully removed from inventory!");
+            System.out.println("You are back at the main menu.");
         }
     }
 
     public void displayInventoryItems() {
-        if (inventoryItems.isEmpty()) {
-            System.out.println("There are no items to be listed.");
+
+        if (checkIfInventoryIsEmpty("There are no present items in the inventory")) {
             System.out.println("You are back to the main menu");
             return;
         }
         for (InventoryItem item : inventoryItems) {
             System.out.println(item.getDetails());
-        }
-    }
-
-    private void removeItemFromOrder() {
-
-    }
-
-    private void addItemToOrder() {
-
-    }
-
-    private void showOrders() {
-        for (Order order : this.orders) {
-            System.out.println(order);
-        }
-    }
-
-    private boolean validateItem(String itemData, String category) {
-        if (itemData == null || itemData.isEmpty()) {
-            System.out.println("Invalid data. Please enter the following data: Name, Category, Price, Quantity");
-            displayMenu();
-            return false;
-        }
-
-        String[] itemParts = itemData.split(", ");
-
-        if (itemParts.length < 3) {
-            System.out.println("Invalid number of parameters");
-            return false;
-        } else {
-            try {
-                String name = itemParts[0];
-                double price = Double.parseDouble(itemParts[1]);
-                int quantity = Integer.parseInt(itemParts[2]);
-
-                if (category.equals("Fragile")) {
-                    double weight = Double.parseDouble(itemParts[3]);
-                }
-
-            } catch (NumberFormatException e) {
-                System.out.println("You attempted to enter an invalid number.");
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private String pickCategory() {
-        System.out.println("Please choose from the following categories: ");
-        System.out.println("\t Electronics");
-        System.out.println("\t Fragile");
-        System.out.println("\t Grocery");
-
-        String input = scanner.nextLine();
-
-        while (true) {
-            if (!input.trim().equals("Electronics") && !input.trim().equals("Fragile") && !input.trim().equals("Grocery")) {
-                System.out.println("Invalid category. Please enter a valid category or exit with command 11");
-                input = scanner.nextLine();
-
-                if (input.trim().equals("11")) {
-                    return "exit";
-                }
-            } else {
-                System.out.println("Picked " + input);
-                return input;
-            }
         }
     }
 
@@ -294,53 +157,30 @@ public class InventoryManager {
     }
 
     private void placeOrder() {
-        List<InventoryItem> cart = new ArrayList<>();
+        if (checkIfInventoryIsEmpty("You cannot make an order with an empty inventory")) {
+            System.out.println("You are back to the main menu");
+            return;
+        }
+
+        List<CartItem> cart = new ArrayList<>();
+
         while (true) {
-            if (inventoryItems.isEmpty()) {
-                System.out.println("There are no items in the inventory! Please add items and before placing " +
-                        "an order!");
-                displayMenu();
-                return;
-            }
 
-            System.out.println("Enter the item ID to add to the cart or type 'done' to finish:");
-            System.out.println("Items: ");
+            System.out.println("Enter the item ID to add to the cart or type 'exit' to finish:");
+            System.out.println("All Items present: ");
             displayInventoryItems();
-            String input = scanner.nextLine();
 
-            if (input.equals("done")) {
+            InventoryItem item = findItemById();
+
+            if (item == null) {
                 break;
-            }
-
-            try {
-                long itemId = Long.parseLong(input);
-                InventoryItem item = inventoryItems.stream()
-                        .filter(i -> i.getId() == itemId)
-                        .findFirst()
-                        .orElse(null);
-
-                if (item == null) {
-                    System.out.println("Item not found!");
-                    continue;
-                }
-
-                System.out.println("Enter the quantity:");
-                int quantity = Integer.parseInt(scanner.nextLine());
-
-                if (quantity > item.getQuantity()) {
-                    System.out.println("Not enough stock!");
-                } else {
-                    item.setQuantity(item.getQuantity() - quantity);
-                    cart.add(new InventoryItem(item.getName(), item.getCategory(), item.getPrice(), quantity));
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please try again.");
+            } else {
+                selectQuantity(item, cart);
             }
         }
 
         if (cart.isEmpty()) {
             System.out.println("Cart is empty!");
-            displayMenu();
             return;
         }
 
@@ -369,12 +209,26 @@ public class InventoryManager {
                     if (!paymentProcessor.processPayment(creditCardPayment)) {
                         continue;
                     }
-                    Order order = new Order(cart, total);
+                    Order order = new Order(cart, total, creditCardPayment);
                     this.orders.add(order);
                     displayMenu();
                     return;
                 } else if (paymentMethod == 2) {
-
+                    System.out.println("Please enter the following data: Email, Password");
+                    System.out.println("The email should consist of '@' and a domain part");
+                    System.out.println("The password should be at least 6 symbols long and it should contain at least" +
+                            " one digit and one capital letter");
+                    System.out.println("For example: User@gmail.com, User123");
+                    String input = scanner.nextLine();
+                    String[] inputData = input.split(", ");
+                    PayPalPayment payPalPayment = new PayPalPayment(inputData[0], inputData[1]);
+                    if (!paymentProcessor.processPayment(payPalPayment)) {
+                        continue;
+                    }
+                    Order order = new Order(cart, total, payPalPayment);
+                    this.orders.add(order);
+                    displayMenu();
+                    return;
                 } else {
                     throw new NumberFormatException("Invalid payment method!");
                 }
@@ -385,6 +239,249 @@ public class InventoryManager {
 
         }
 
+    }
+
+    private void selectQuantity(InventoryItem item, List<CartItem> cart) {
+        System.out.println("Enter the quantity:");
+        int quantity = Integer.parseInt(scanner.nextLine());
+
+        if (quantity > item.getQuantity()) {
+            System.out.println("Not enough stock!");
+        } else {
+            item.setQuantity(item.getQuantity() - quantity);
+            CartItem cartItem = new CartItem(item.getName(), item.getCategory(), item.getPrice(), quantity, item.getId());
+            cart.add(cartItem);
+        }
+    }
+
+    private void addItemToExistingOrder() {
+        if (checkIfOrdersAreEmpty() || checkIfInventoryIsEmpty("---------")) return;
+
+        Order order = findOrderById();
+
+        if (order == null) {
+            return;
+        }
+
+        System.out.println("You selected the order with ID " + order.getOrderId());
+        System.out.println(order);
+
+            while (true) {
+                System.out.println("Enter the item ID to add to the cart or type 'exit' to finish:");
+                displayInventoryItems();
+                InventoryItem item = findItemById();
+                if (item != null) {
+                    try {
+                        System.out.println("Select quantity: ");
+                        String input = scanner.nextLine();
+                        if (input.equals("exit")) {
+                            System.out.println("You are back to the main menu.");
+                            return;
+                        }
+
+                        int quantity = Integer.parseInt(input);
+                        CartItem cartItem = order.findCartItem(item.getId());
+                        if (quantity > item.getQuantity()) {
+                            System.out.println("Not enough stock!");
+                        } else {
+                            if (cartItem != null) {
+                                cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                                item.setQuantity(item.getQuantity() - quantity);
+                            } else {
+                                CartItem cartItem1 = new CartItem(item.getName(), item.getCategory(), item.getPrice(),
+                                        quantity, item.getId());
+                                order.getItems().add(cartItem1);
+                                item.setQuantity(item.getQuantity() - quantity);
+                                System.out.println("Item with ID " + cartItem1.getId() + " And with quantity " + cartItem1.getQuantity() +
+                                        " Added to the cart");
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid number. Please try again with a valid number or go to main menu with " +
+                                "'exit'.");
+                    }
+                } else {
+                    return;
+                }
+            }
+    }
+
+    private void removeItemFromOrder() {
+        if (checkIfOrdersAreEmpty() || checkIfInventoryIsEmpty("---------")) return;
+
+        Order order = findOrderById();
+
+        if (order == null) {
+            return;
+        }
+
+        System.out.println("You selected the order with ID " + order.getOrderId());
+        System.out.println(order);
+
+        while (true) {
+            System.out.println("Enter the item ID to remove from the cart or type 'exit' to finish:");
+            displayInventoryItems();
+            InventoryItem item = findItemById();
+            if (item != null) {
+                try {
+                    System.out.println("Select quantity to remove: ");
+                    String input = scanner.nextLine();
+                    if (input.equals("exit")) {
+                        System.out.println("You are back to the main menu.");
+                        return;
+                    }
+
+                    int quantity = Integer.parseInt(input);
+                    CartItem cartItem = order.findCartItem(item.getId());
+                    if (cartItem == null) {
+                        System.out.println("This item is not in the cart!");
+                    } else {
+                        if (quantity >= cartItem.getQuantity()) {
+                            order.getItems().remove(cartItem);
+                            item.setQuantity(item.getQuantity() + cartItem.getQuantity());
+                            System.out.println("Item with ID " + cartItem.getId() + " has been removed from the cart.");
+                        } else {
+                            cartItem.setQuantity(cartItem.getQuantity() - quantity);
+                            item.setQuantity(item.getQuantity() + quantity);
+                            System.out.println("Reduced quantity of item with ID " + cartItem.getId() + " in the cart.");
+                        }
+
+                        if (order.getItems().isEmpty()) {
+                            orders.remove(order);
+                            System.out.println("The cart is now empty. The order has been removed.");
+                            return;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number. Please try again with a valid number or go to main menu with 'exit'.");
+                }
+            } else {
+                return;
+            }
+        }
+    }
+
+    private Order findOrderById() {
+        System.out.println("Please enter the ID of the specific order:");
+        showOrders();
+        while (true) {
+            String orderInput = scanner.nextLine();
+            try {
+                int orderId = Integer.parseInt(orderInput);
+                if (orderInput.trim().equals("exit")) {
+                    return null;
+                }
+                Optional<Order> optionalOrder = orders.stream().filter(o -> o.getOrderId() == orderId).findFirst();
+                if (optionalOrder.isPresent()) {
+                    return optionalOrder.get();
+                } else {
+                    System.out.println("There is no such order with ID " + orderId);
+                    System.out.println("Please enter an existing ID or go back to the main menu with 'exit'");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Please try again with valid number or go back to the main menu " +
+                        "with 'exit'");
+            }
+        }
+    }
+
+    private InventoryItem findItemById() {
+        String itemIdInput = scanner.nextLine();
+        while (true) {
+            try {
+                if (itemIdInput.equals("exit")) {
+                    System.out.println("You are back at the main menu.");
+                    return null;
+                }
+                int itemId = Integer.parseInt(itemIdInput);
+                Optional<InventoryItem> optionalInventoryItem = inventoryItems.stream().filter(i -> i.getId() == itemId).findFirst();
+
+                if (optionalInventoryItem.isPresent()) {
+                    InventoryItem inventoryItem = optionalInventoryItem.get();
+                    return inventoryItem;
+                } else {
+                    System.out.println("There is no such item with ID " + itemId);
+                    System.out.println("Please try again with an existing ID or go back to main menu with 'exit'.");
+                    itemIdInput = scanner.nextLine();
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid ID or go back to main menu with 'exit'.");
+                itemIdInput = scanner.nextLine();
+            }
+        }
+    }
+
+    private void showOrders() {
+        if (this.orders.isEmpty()) {
+            System.out.println("There are no present orders");
+            return;
+        }
+        System.out.println("All present orders:");
+        for (Order order : this.orders) {
+            System.out.println(order);
+        }
+    }
+
+    private boolean validateItem(String itemData, String category) {
+        if (itemData == null || itemData.isEmpty()) {
+            System.out.println("Invalid data. Please enter the following data: Name, Category, Price, Quantity");
+            displayMenu();
+            return false;
+        }
+
+        String[] itemParts = itemData.split(", ");
+
+        if (itemParts.length < 3) {
+            System.out.println("Invalid number of parameters");
+            return false;
+        } else {
+            try {
+                String name = itemParts[0];
+                if (name.isBlank()) {
+                    System.out.println("Name cannot be empty!");
+                    return false;
+                }
+                double price = Double.parseDouble(itemParts[1]);
+                int quantity = Integer.parseInt(itemParts[2]);
+
+                if (category.equals("Fragile")) {
+                    double weight = Double.parseDouble(itemParts[3]);
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("You attempted to enter an invalid number.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private String pickCategory() {
+        System.out.println("Please choose from the following categories: ");
+        System.out.println("\t Electronics");
+        System.out.println("\t Fragile");
+        System.out.println("\t Grocery");
+
+        String input = scanner.nextLine();
+
+        while (true) {
+            if (!input.trim().equals("Electronics") && !input.trim().equals("Fragile") && !input.trim().equals("Grocery")) {
+                System.out.println("Invalid category. Please enter a valid category or go back to main menu with " +
+                        "command 'exit'");
+                input = scanner.nextLine();
+
+                if (input.trim().equals("exit")) {
+                    System.out.println("You are back at the main menu");
+                    return "exit";
+                }
+            } else {
+                System.out.println("Picked " + input);
+                return input;
+            }
+        }
     }
 
     private boolean validateCreditCardInputParameters(String input) {
@@ -425,8 +522,71 @@ public class InventoryManager {
         System.out.print("Enter your choice: ");
     }
 
-    private void removeItemById(long id) {
-        inventoryItems.removeIf(item -> item.getId() == id);
+    private void saveToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write("ItemID,Name,Category,Price,Quantity,Perished,Broken");
+            writer.newLine();
+            for (InventoryItem item : inventoryItems) {
+                writer.write(item.getId() + "," +
+                        item.getName() + "," +
+                        item.getCategory() + "," +
+                        item.getPrice() + "," +
+                        item.getQuantity() + "," +
+                        item.isPerishable() + "," +
+                        item.isBreakable());
+                writer.newLine();
+            }
+            System.out.println("Successfully saved to " + filename);
+            System.out.println("You are back to the main menu");
+        } catch (IOException e) {
+            System.err.println("Error saving to file: " + e.getMessage());
+        }
+    }
+
+    private void loadFromFile(String filename) {
+        inventoryItems.clear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line = reader.readLine(); // Read the header line
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length == 9) {
+                    long itemId = Long.parseLong(fields[0]);
+                    String name = fields[1];
+                    String category = fields[2];
+                    double price = Double.parseDouble(fields[3]);
+                    int quantity = Integer.parseInt(fields[4]);
+                    boolean perished = Boolean.parseBoolean(fields[5]);
+                    boolean broken = Boolean.parseBoolean(fields[6]);
+
+                    InventoryItem item = new InventoryItem(name, category, price, quantity);
+                    item.setItemId(itemId);
+                    inventoryItems.add(item);
+                }
+            }
+            System.out.println("Successfully loaded from " + filename);
+            System.out.println("You are back to the main menu");
+        } catch (IOException e) {
+            System.err.println("Error loading from file: " + e.getMessage());
+            System.out.println("You are back to the main menu");
+        }
+    }
+
+    private boolean checkIfInventoryIsEmpty(String message) {
+        if (inventoryItems.isEmpty()) {
+            System.out.println(message);
+            System.out.println("You can add an item by selecting option '1'.");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkIfOrdersAreEmpty() {
+        if (orders.isEmpty()) {
+            System.out.println("No orders currently exist.");
+            System.out.println("Please create an order first by selecting option '5'.");
+            return true;
+        }
+        return false;
     }
 
 }

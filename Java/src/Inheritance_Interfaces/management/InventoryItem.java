@@ -28,44 +28,13 @@ public class InventoryItem extends AbstractItem {
 
     @Override
     public String getDetails() {
-        return "ID " + itemId + ", Name: " + getName() + ", Category: " + getCategory() + ", Price: " + getPrice() + ", Quantity: " + quantity;
+        return "ID " + getId() + ", Name: " + getName() + ", Category: " + getCategory() + ", Price: " + getPrice() + ", Quantity: " + quantity;
     }
 
     @Override
     public double calculatingValue() {
         return getPrice() * quantity;
     }
-
-//    @Override
-//    public String getDescription() {
-//        String description = "";
-//
-//        if (isPerishable()) {
-//            description += "The item is perishable!\n";
-//
-//            if (isPerished()) {
-//                description += "The item has perished!\n";
-//            } else {
-//                description += "The item has not perished!\n";
-//            }
-//        } else {
-//            description += "The item is not perishable\n";
-//        }
-//
-//        if (isBreakable()) {
-//            description += "The item is breakable!\n";
-//
-//            if (isBroken()) {
-//                description += "The item is broken!\n";
-//            } else {
-//                description += "The item is not broken!\n";
-//            }
-//        } else {
-//            description += "The item is not breakable!\n";
-//        }
-//
-//        return description;
-//    }
 
 
     public void setItemId(long itemId) {
