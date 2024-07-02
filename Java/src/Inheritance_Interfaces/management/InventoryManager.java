@@ -27,6 +27,7 @@ public class InventoryManager {
         displayMenu();
 
         while (true) {
+            try {
             int command = Integer.parseInt(scanner.nextLine());
 
             switch (command) {
@@ -61,9 +62,18 @@ public class InventoryManager {
                     loadFromFile("invetory.csv");
                     break;
                 case 11:
+                    displayMenu();
+                    break;
+                case 12:
                     return;
                 default:
                     System.out.println("Invalid command. Please try again.");
+            }
+
+            } catch (NumberFormatException e) {
+                System.out.println("You entered a string instead of number");
+                System.out.println(e.getMessage());
+                System.out.println("The app works only with the commands listed: 1-12");
             }
         }
     }
@@ -292,7 +302,7 @@ public class InventoryManager {
                                         quantity, item.getId());
                                 order.getItems().add(cartItem1);
                                 item.setQuantity(item.getQuantity() - quantity);
-                                System.out.println("Item with ID " + cartItem1.getId() + " And with quantity " + cartItem1.getQuantity() +
+                                System.out.println("Item with ID " + cartItem1.getCartItemId() + " And with quantity " + cartItem1.getQuantity() +
                                         " Added to the cart");
                             }
                         }
@@ -518,7 +528,8 @@ public class InventoryManager {
         System.out.println("8. Show all orders");
         System.out.println("9. Save inventory to a file");
         System.out.println("10. Load inventory from a file");
-        System.out.println("11. Exit");
+        System.out.println("11. Display menu");
+        System.out.println("12. Exit");
         System.out.print("Enter your choice: ");
     }
 
