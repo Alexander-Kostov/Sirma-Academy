@@ -1,9 +1,8 @@
 package Inheritance_Interfaces.order;
 
 import Inheritance_Interfaces.items.CartItem;
-import Inheritance_Interfaces.management.InventoryItem;
+import Inheritance_Interfaces.items.InventoryItem;
 import Inheritance_Interfaces.payment.PaymentMethod;
-import Inheritance_Interfaces.payment.PaymentProcessor;
 
 import java.util.List;
 

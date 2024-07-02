@@ -1,9 +1,6 @@
 package Inheritance_Interfaces.management;
 
-import Inheritance_Interfaces.items.CartItem;
-import Inheritance_Interfaces.items.ElectronicsItem;
-import Inheritance_Interfaces.items.FragileItem;
-import Inheritance_Interfaces.items.GroceryItem;
+import Inheritance_Interfaces.items.*;
 import Inheritance_Interfaces.order.Order;
 import Inheritance_Interfaces.payment.CreditCardPayment;
 import Inheritance_Interfaces.payment.PayPalPayment;

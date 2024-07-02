@@ -1,7 +1,5 @@
 package Inheritance_Interfaces.items;
 
-import Inheritance_Interfaces.management.InventoryItem;
-
 import java.time.LocalDate;
 
 public class ElectronicsItem extends InventoryItem {

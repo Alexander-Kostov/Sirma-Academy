@@ -1,7 +1,5 @@
 package Inheritance_Interfaces.items;
 
-import Inheritance_Interfaces.management.InventoryItem;
-
 public class GroceryItem extends InventoryItem {
 
     private boolean perished;

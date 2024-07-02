@@ -1,4 +1,4 @@
-package Inheritance_Interfaces.management;
+package Inheritance_Interfaces.items;
 
 import Inheritance_Interfaces.items.AbstractItem;
 
