@@ -19,6 +19,11 @@ public class CreditCardPayment implements PaymentMethod{
     }
 
     @Override
+    public String getMethodName() {
+        return "Credit Card";
+    }
+
+    @Override
     public boolean validate() {
         if (!validateCardHolder(cardHolder)) {
             return false;
@@ -113,8 +118,4 @@ public class CreditCardPayment implements PaymentMethod{
         return (sum % 10 == 0);
     }
 
-    @Override
-    public String getMethodName() {
-        return "Credit Card";
-    }
 }

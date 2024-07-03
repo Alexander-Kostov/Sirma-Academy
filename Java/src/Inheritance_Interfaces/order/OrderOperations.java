@@ -2,7 +2,7 @@ package Inheritance_Interfaces.order;
 
 import Inheritance_Interfaces.items.CartItem;
 import Inheritance_Interfaces.items.InventoryItem;
-import Inheritance_Interfaces.management.InventoryOperations;
+import Inheritance_Interfaces.management.InventoryManager;
 import Inheritance_Interfaces.payment.CreditCardPayment;
 import Inheritance_Interfaces.payment.PayPalPayment;
 import Inheritance_Interfaces.payment.PaymentProcessor;
@@ -20,11 +20,11 @@ public class OrderOperations {
     private final List<Order> orders = new ArrayList<>();
     private final PaymentProcessor paymentProcessor = new PaymentProcessor();
     private final Scanner scanner = new Scanner(System.in);
-    private final InventoryOperations inventoryOperations;
+    private final InventoryManager inventoryOperations;
 
     private final InputValidation inputValidation;
 
-    public OrderOperations(InventoryOperations inventoryOperations, InputValidation inputValidation) {
+    public OrderOperations(InventoryManager inventoryOperations, InputValidation inputValidation) {
         this.inventoryOperations = inventoryOperations;
         this.inputValidation = inputValidation;
     }

@@ -8,13 +8,31 @@ import java.util.Scanner;
 
 public class MenuOperations {
     private final Scanner scanner = new Scanner(System.in);
-    private final InventoryOperations inventoryOperations;
+    private final InventoryManager inventoryOperations;
     private final OrderOperations orderOperations;
 
 
-    public MenuOperations(InventoryOperations inventoryOperations, OrderOperations orderOperations) {
+    public MenuOperations(InventoryManager inventoryOperations, OrderOperations orderOperations) {
         this.inventoryOperations = inventoryOperations;
         this.orderOperations = orderOperations;
+    }
+
+    public static void displayMenu() {
+        System.out.println("You are at the Main Menu! Select one of the following commands:");
+        System.out.println();
+        System.out.println("1. Add item to inventory");
+        System.out.println("2. Remove item from inventory");
+        System.out.println("3. Display items");
+        System.out.println("4. Categorize items");
+        System.out.println("5. Make an order");
+        System.out.println("6. Add item to specific order");
+        System.out.println("7. Remove item from specific order");
+        System.out.println("8. Show all orders");
+        System.out.println("9. Save inventory to a file");
+        System.out.println("10. Load inventory from a file");
+        System.out.println("11. Display menu");
+        System.out.println("12. Exit");
+        System.out.print("Enter your choice: ");
     }
 
     public void start() {
@@ -120,22 +138,5 @@ public class MenuOperations {
             System.err.println("Error loading from file: " + e.getMessage());
             System.out.println("You are back to the main menu");
         }
-    }
-    public static void displayMenu() {
-        System.out.println("You are at the Main Menu! Select one of the following commands:");
-        System.out.println();
-        System.out.println("1. Add item to inventory");
-        System.out.println("2. Remove item from inventory");
-        System.out.println("3. Display items");
-        System.out.println("4. Categorize items");
-        System.out.println("5. Make an order");
-        System.out.println("6. Add item to specific order");
-        System.out.println("7. Remove item from specific order");
-        System.out.println("8. Show all orders");
-        System.out.println("9. Save inventory to a file");
-        System.out.println("10. Load inventory from a file");
-        System.out.println("11. Display menu");
-        System.out.println("12. Exit");
-        System.out.print("Enter your choice: ");
     }
 }

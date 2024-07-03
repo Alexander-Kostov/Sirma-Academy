@@ -12,6 +12,11 @@ public class PayPalPayment implements PaymentMethod{
     }
 
     @Override
+    public String getMethodName() {
+        return "PayPal";
+    }
+
+    @Override
     public boolean validate() {
         return validateEmail(this.email) && validatePassword(this.password);
     }
@@ -39,8 +44,4 @@ public class PayPalPayment implements PaymentMethod{
         return hasNumber && hasUppercase;
     }
 
-    @Override
-    public String getMethodName() {
-        return "PayPal";
-    }
 }
