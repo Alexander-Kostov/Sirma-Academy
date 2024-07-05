@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+
+}
+
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+.box {
+    background-color: #ddd;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        margin: 5px 5px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        margin: 5px 5px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 599px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        gap: 10px;
+    }
+}
