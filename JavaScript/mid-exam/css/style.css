@@ -1,0 +1,813 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+    background-color: #eaeaea;
+}
+
+section {
+    padding: 24px 148px;
+}
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* Navigation */ 
+
+
+header {
+    background-color: #000000;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav > ul {
+    display: flex;
+    gap: 44px;
+}
+
+nav a {
+    color: #ffffff;
+    opacity: 0.690;
+    text-decoration: none;
+}
+
+
+/* Hero Section */
+
+.hero {
+    height: 642px;
+    background:rgba(0, 0, 0, 0.5) url("../assets/images/image.png");
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: darken;
+    clip-path: inset(0px 0px 60px 0px);
+}
+
+.hero .container {
+    margin-top: 82px;
+}
+
+.hero-info {
+    color: #ffffff;
+    font-family: "Raleway"; 
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-top: 0;
+}
+
+.hero-info h1 {
+    font-size: 36px;
+    width: 528px;
+    line-height: 1.2;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.hero-info h1::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 65px;
+    background-color: #fff;
+    margin: 30px 0px 16px 4px;
+}
+
+.hero-info p {
+    width: 462px;
+    opacity: 0.7;
+    font-size: 16px;
+    line-height: 23px;
+    font-weight: 300;
+    font-family: "Raleway";
+}
+
+.hero-info button {
+    margin-top: 10px;
+    align-self: flex-start;
+    background-color: Transparent;
+    border: 3px solid;
+    cursor:pointer;
+    color: white;
+    padding: 8px 32px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Open Sans";
+    opacity: 0.9;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-info {
+    margin-top: 34px;
+    background-color: #fff;
+    height: 362px;
+    width: 362px;
+    text-align: center;
+}
+
+.register-text {
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+    font-family: "Open Sans";
+    padding: 17px 0;
+    background-color: #F5F5F5;
+}
+
+.register-text, .register-info {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.register-info, .register-button {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.register-text span {
+    color: #ff8b38;;
+}
+
+form input {
+    display: block;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);;
+    margin: 40px auto;
+    width: 80%
+}
+
+form input[name="email"] {
+    margin: 46px auto;
+}
+
+form input[name="password"] {
+    margin: 57px auto;
+}
+
+form input::placeholder {
+    opacity: 0.4;
+    position: absolute;
+    left: 10px;
+    bottom: 4px;
+}
+
+.register-button {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Open Sans';
+    background-color: #FF9B51;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 17px 0;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+
+/* Social Media Section */
+
+.social-media {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    margin-top: -60px;
+    border-bottom: 2px solid #D6D6D6;
+    margin-bottom: 2px;
+}
+
+.social-media-text {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+}
+
+.social-media-icons {
+    align-self: center;
+}
+
+.social-media-text > h2 {
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.social-media-text p {
+    max-width: 362px;
+    margin-top: 2px;
+}
+
+
+/* Tabs Section */
+
+.tabs {
+    background-color: #F5F5F5;
+    font-family: "Open Sans";
+}
+
+.tabs-container {
+    margin-top: 146px;
+    display: flex;
+    gap: 104px;
+}
+
+.tab {
+    background-color: #333333;
+    padding: 46px 38px;
+    margin-top: 1px;
+    display: inline-block; 
+    white-space: nowrap;
+}
+
+.tab p {
+    font-size: 15px;
+    line-height: 20px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.tab:last-child {
+    margin-bottom: 115px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.tab:first-child {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.tab:hover {
+    background-color: #FF8B38;
+    transition: 0.5s ease-in-out;
+}
+
+/* In case you want constant colour to the first tab */
+
+/* .tab:first-child {
+    background-color: #FF8B38;
+} */
+
+.tabs .info .title,
+.standard .info .title {
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: 700;
+}
+
+.tabs .info .desc,
+.standard .info .desc {
+    margin-bottom: 28px;
+}
+
+.tabs .info button {
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 53px;
+    padding: 12px 24px;
+    background-color: #FF8B38;
+    border: none;
+    border-radius: 2px;
+}
+
+
+/* Sub-list Section */
+
+.sub-list {
+    background-color: #fff;
+    font-family: "Open Sans";
+}
+
+.sub-list .container {
+    display: flex;
+    gap: 148px;
+}
+
+.sub-list .container {
+    margin-top: 100px;
+}
+
+.sub-list .info .title {
+    font-size: 20px;
+    color: #212121;
+    font-weight: 700;
+}
+
+.sub-list .info .title::after,
+.standard .info .title::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #FE8A38;
+    margin: 30px 0;
+}
+
+.sub-list .info .desc {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+.sub-list .icon-info {
+    display: flex;
+    gap: 30px;
+}
+
+.sub-list .icon-text h3 {
+    font-size: 14px;
+    line-height: 17px;
+    color: #212121;
+    font-weight: 600;
+}
+
+.sub-list .icon-text p {
+    max-width: 363px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    margin-bottom: 43px;
+}
+
+.icon-info .icon {
+    color: #F88736;
+}
+
+.icon-info .icon i {
+    border: 1.5px solid #F88736;
+    border-radius: 50%;
+    padding: 9px;
+}
+
+
+/* Standard Section */
+
+
+.standard {
+    background-color: #F5F5F5;
+    padding-right: 39px;
+}
+
+.standard-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 106px;
+    margin-bottom: 100px;
+}
+
+.standard-container .desc{
+    max-width: 474px;
+}
+
+.standard-container .sub-desc {
+    max-width: 475px;
+}
+
+
+/* Awesome section */
+
+.awesome {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #fff;;
+}
+
+.awesome h2 {
+    font-size: 36px;
+    line-height: 43px;
+    color: #212121;
+    font-weight: 400;
+    font-family: "Raleway";
+    margin-top: 108px;
+}
+
+.awesome h2::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #FE8A38;
+    margin: 30px auto;
+}
+
+.awesome > p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+    margin-bottom: 80px;
+}
+
+.awesome .features {
+    display: flex;
+    justify-content: space-between;
+}
+
+.awesome .features i {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid #F88736;
+    border-radius: 50%;
+    color: #ff8b38;
+    text-align: center;
+    line-height: 35px;
+    vertical-align: middle;
+    padding: 22px;
+    margin-bottom: 32px;
+    font-size: 30px;
+    
+}
+.awesome .feature-item .title {
+    font-size: 20px;
+    line-height: 24px;
+    color: #333333;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+.awesome .feature-item .desc {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+    max-width: 352px;
+    margin-bottom: 105px;
+}
+
+
+/* Pricing */
+
+.pricing {
+    background-color: #F5F5F5;
+}
+
+.pricing .container {
+    margin-top: 84px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.pricing .container h2 {
+    font-size: 36px;
+    line-height: 43px;
+    color: #212121;
+    font-family: "Raleway";
+}
+
+.pricing .container > h2::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #FE8A38;
+    margin: 30px auto;
+}
+
+.pricing .container > p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+    margin-bottom: 118px;
+}
+
+.pricing .container .pricing-cards {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.pricing .container .pricing-cards .p-card {
+    width: 342px;
+}
+
+.pricing .container .p-card > h3 {
+    padding: 12px;
+    font-size: 17px;
+    line-height: 24px;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: "Open Sans";
+    background-color: #333333;
+    color: #fff;
+}
+
+.card-price {
+    background-color: #333333;
+    color: #fff;
+    margin-top: 1px;
+}
+
+.card-price .price {
+    color: #fff;
+    padding: 60px 60px 22px 60px;
+    font-size: 85px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Raleway";
+}
+
+.card-price .payment-type {
+    font-style: italic;
+    color: #fff;
+    padding-bottom: 15px;
+    opacity: 0.502;
+}
+
+.card-price .price > span {
+    font-size: 30px;
+}
+
+.most-popular {
+    background-color: #FE8A38;
+    content: '';
+    border: 2px solid #FE8A38;
+}
+
+.most-popular.selected {
+    color: #fff;
+    padding: 7px;
+    font-weight: 700;
+    font-family: "Open Sans";
+}
+
+.p-card:nth-child(2) {
+    margin-top: -33px;
+}
+
+.p-card .card-text {
+    padding: 10px;
+    border-bottom: 2px solid #F5F5F5;
+    background-color: #fff;
+}
+
+.p-card .card-text:last-of-type {
+    margin-bottom: 70px;
+}
+
+
+/* Reviews Section */
+
+.reviews {
+    background-color: #fff;
+}
+.reviews .container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.reviews .container > h2 {
+    font-size: 36px;
+    line-height: 43px;
+    color: #212121;
+    font-family: "Raleway";
+}
+
+.reviews .container > h2::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #FE8A38;
+    margin: 30px auto;
+}
+
+.reviews .container > p {
+    margin-bottom: 34px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+}
+
+.reviews .cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.reviews .customer-card {
+    width: 272px;
+    font-family: "Open Sans";
+}
+
+.reviews .customer-card .text {
+    text-align: left;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+    padding: 20px 10px;
+    font-size: 14px;
+    color: #86878b;
+    font-weight: 400;
+}
+
+.customer-card .person-inf {
+    display: flex;
+    margin-top: 15px;
+    gap: 12px;
+}
+.customer-card .person-name {
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+}
+
+.customer-card .position {
+    font-size: 14px;
+    color: #86878b;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 4px;   
+}
+
+.person-inf > div {
+    align-self: center;
+}
+
+/* Axure section */
+.axure {
+    height: 320px;
+    background:rgba(0, 0, 0, 1) url("../assets/images/axure.png");
+    background-position: center;
+    background-size: cover;
+}
+.axure .container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.axure .container > h1 {
+    font-size: 36px;
+    color: #ffffff;
+    font-family: "Raleway";
+    margin-top: 54px;
+}
+
+.axure .container > h1::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #F8F8F8;
+    margin: 34px auto;
+}
+
+.axure .container > p {
+    opacity: 0.800;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 300;
+    font-family: "Raleway";
+    margin-bottom: 24px;
+}
+
+.axure .container > button {
+    background-color: Transparent;
+    border: 3px solid;
+    cursor:pointer;
+    color: white;
+    padding: 8px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Open Sans";
+    opacity: 0.9;
+    align-self: center;
+    margin-top: 20px;
+}
+
+
+/* Contact Section */
+
+.contact {
+    background-color: #fff;
+}
+
+.contact .container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.contact .container > h2 {
+    font-size: 36px;
+    line-height: 43px;
+    color: #212121;
+    font-family: "Raleway";
+}
+
+.contact .container > h2::after {
+    display: block;
+    content: '';
+    height: 2px;
+    width: 64px;
+    background-color: #FE8A38;
+    margin: 30px auto;
+}
+
+.contact .container > p {
+    margin-bottom: 34px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #86878b;
+    font-weight: 400;
+    font-family: "Open Sans";
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact form .contact-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact form .contact-fields {
+    width: 573px;
+}
+
+.contact-message textarea {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    width: 452px;
+    margin-top: 58px;
+    resize: none;
+}
+
+.contact-message label {
+    position: relative;
+    top: -135px;
+    right: 463px;
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+.contact form > button {
+    align-self: center;
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 53px;
+    padding: 12px 24px;
+    background-color: #FF8B38;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 40px;
+}
+
+/* Footer */
+
+footer {
+    padding: 20px 0;
+    background-color: #000000;
+    text-align: center;
+}
+
+.footer-icons {
+    margin-bottom: 6px;
+}
+
+
